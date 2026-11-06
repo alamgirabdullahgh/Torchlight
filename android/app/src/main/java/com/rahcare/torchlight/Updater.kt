@@ -7,7 +7,7 @@ import java.net.URL
 // GitHub-এ নতুন রিলিজ এলো কি না দেখে। "latest release" লিংক কোন ট্যাগে যায় সেটা পড়া হয় (API নয়, তাই রেট লিমিট নেই)।
 // ট্যাগ v1.0.N হলে সংস্করণ নম্বর = 100 + N (build.gradle-এর versionCode-এর সাথে মেলে)।
 object Updater {
-    const val REPO = "raqialamgirabdullah-rgb/Torchlight"
+    const val REPO = "alamgirabdullahgh/Torchlight"
     private const val BASE = 100
 
     class Info(val v: Int, val url: String, val tag: String)
