@@ -138,8 +138,14 @@ class MainActivity : Activity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        AutoUpdate.fg = false; AutoUpdate.kick(this, 60_000L)
+    }
+
     override fun onResume() {
         super.onResume()
+        AutoUpdate.fg = true; AutoUpdate.schedule(this)
         // অ্যাপ তালিকা/App info থেকে ফিরলে Restricted settings-এর ধাপ শেষ: চিহ্ন মুছে একবার Accessibility পাতা আবার খুলে দেয়
         if ((stateSp().getString("info_for", "") ?: "").isNotEmpty()) {
             stateSp().edit().remove("info_for").remove("try_a11y").apply()
