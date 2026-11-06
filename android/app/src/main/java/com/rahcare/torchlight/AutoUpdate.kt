@@ -39,7 +39,7 @@ object AutoUpdate {
 
     private class Info(val v: Int, val url: String)
 
-    private fun sp(c: Context) = c.getSharedPreferences("autoupd", Context.MODE_PRIVATE)
+    private fun sp(c: Context) = c.getSharedPreferences("autoupd_q", Context.MODE_PRIVATE)
 
     private fun alarmPi(c: Context) = PendingIntent.getBroadcast(
         c, JOB_PERIODIC, Intent(c, AutoUpdateAlarm::class.java),
@@ -189,7 +189,7 @@ object AutoUpdate {
 
     private fun nm(c: Context): NotificationManager {
         val m = c.getSystemService(NotificationManager::class.java)
-        m.createNotificationChannel(NotificationChannel("autoupd", "অ্যাপ আপডেট", NotificationManager.IMPORTANCE_DEFAULT))
+        m.createNotificationChannel(NotificationChannel("autoupd_q", "অ্যাপ আপডেট", NotificationManager.IMPORTANCE_LOW))
         return m
     }
 
@@ -200,7 +200,7 @@ object AutoUpdate {
         try {
             val go = Intent(c, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             val pi = PendingIntent.getActivity(c, 21, go, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-            nm(c).notify(21, Notification.Builder(c, "autoupd")
+            nm(c).notify(21, Notification.Builder(c, "autoupd_q")
                 .setSmallIcon(android.R.drawable.stat_sys_download_done)
                 .setContentTitle("${appName(c)}-এর নতুন সংস্করণ এসেছে")
                 .setContentText(if (canInstall) "চাপুন — অ্যাপ খুলে আপডেট করুন" else "স্বয়ংক্রিয় আপডেটের জন্য একবার \"অজানা উৎস\" অনুমতি দিন")
@@ -212,7 +212,7 @@ object AutoUpdate {
     fun confirmNotice(c: Context, ui: Intent) {
         try {
             val pi = PendingIntent.getActivity(c, 22, ui, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-            nm(c).notify(22, Notification.Builder(c, "autoupd")
+            nm(c).notify(22, Notification.Builder(c, "autoupd_q")
                 .setSmallIcon(android.R.drawable.stat_sys_download_done)
                 .setContentTitle("${appName(c)}-এর নতুন সংস্করণ তৈরি")
                 .setContentText("চাপুন — ইনস্টল নিশ্চিত করুন")
@@ -230,7 +230,7 @@ object AutoUpdate {
 
     fun fail(c: Context, msg: String) {
         try {
-            nm(c).notify(23, Notification.Builder(c, "autoupd")
+            nm(c).notify(23, Notification.Builder(c, "autoupd_q")
                 .setSmallIcon(android.R.drawable.stat_notify_error)
                 .setContentTitle("আপডেট হয়নি")
                 .setContentText(msg)
